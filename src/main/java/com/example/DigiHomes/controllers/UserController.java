@@ -7,8 +7,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
+
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/public/user")
 public class UserController {
     @Autowired
     private UserService userService;
@@ -20,7 +22,7 @@ public class UserController {
         return new ResponseEntity<>(user,HttpStatus.OK);
     }
 
-    @PostMapping
+    @PostMapping("/sign-up")
     public ResponseEntity<User> createUser(@RequestBody User user){
         User dummy = new User();
         dummy.setUsername(user.getUsername());
@@ -42,5 +44,11 @@ public class UserController {
         Boolean check = userService.DeleteUser(id);
         if(check) return new ResponseEntity<>(true,HttpStatus.OK);
         return new ResponseEntity<>(false,HttpStatus.NOT_FOUND);
+    }
+
+
+    @GetMapping("/profile")
+    public String getUserProfile(Principal principal) {
+        return "Hello, " + principal.getName();
     }
 }
