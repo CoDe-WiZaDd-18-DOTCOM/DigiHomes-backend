@@ -11,7 +11,7 @@ public class UserService {
     private UserRepo userRepo;
 
     public User SaveUser(User user){
-        if(userRepo.existsByusername(user.getUsername())) return null;
+        if(userRepo.existsByauthid(user.getAuthid())) return null;
         return userRepo.save(user);
     }
 
@@ -19,21 +19,21 @@ public class UserService {
         return userRepo.findById(id).orElse(null);
     }
 
-    public User UpdateUser(Long id, User user){
-        User dbuser = GetUserbyId(id);
-        if(dbuser==null) return null;
-        if(!dbuser.getUsername().equals(user.getUsername())) {
-            dbuser.setUsername(user.getUsername());
-            dbuser.setPassword(user.getPassword());
-            return SaveUser(dbuser);
-        }
-        dbuser.setPassword(user.getPassword());
-        return userRepo.save(dbuser);
-    }
-
-    public Boolean DeleteUser(Long id){
-        if(!userRepo.existsById(id)) return false;
-        userRepo.deleteById(id);
-        return true;
-    }
+//    public User UpdateUser(Long id, User user){
+//        User dbuser = GetUserbyId(id);
+//        if(dbuser==null) return null;
+//        if(!dbuser.getEmail().equals(user.getEmail())) {
+//            dbuser.setEmail(user.getEmail());
+//            dbuser.setPassword(user.getPassword());
+//            return SaveUser(dbuser);
+//        }
+//        dbuser.setPassword(user.getPassword());
+//        return userRepo.save(dbuser);
+//    }
+//
+//    public Boolean DeleteUser(Long id){
+//        if(!userRepo.existsById(id)) return false;
+//        userRepo.deleteById(id);
+//        return true;
+//    }
 }
