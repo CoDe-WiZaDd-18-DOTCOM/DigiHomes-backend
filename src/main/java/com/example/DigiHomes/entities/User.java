@@ -2,6 +2,8 @@ package com.example.DigiHomes.entities;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name="users")
 public class User {
@@ -15,6 +17,21 @@ public class User {
     @Column(nullable = false,unique = true)
     private String email;
 
+    @Column
+    private String name;
+
+    @OneToMany
+    @JoinColumn(name = "users_id")
+    private List<Properties> property;
+
+    public List<Properties> getProperty() {
+        return property;
+    }
+
+    public void setProperty(List<Properties> property) {
+        this.property = property;
+    }
+
     public String getName() {
         return name;
     }
@@ -22,10 +39,6 @@ public class User {
     public void setName(String name) {
         this.name = name;
     }
-
-    @Column
-    private String name;
-
 
     public String getAuthid() {
         return authid;
