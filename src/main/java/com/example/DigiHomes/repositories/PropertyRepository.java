@@ -1,10 +1,9 @@
 package com.example.DigiHomes.repositories;
 
-import com.example.DigiHomes.entities.User;
+import com.example.DigiHomes.entities.Properties;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface UserRepo extends JpaRepository<User,Long> {
-    Boolean existsByauthid(String authid);
+public interface PropertyRepository extends JpaRepository<Properties,Long> {
 }
