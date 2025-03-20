@@ -20,8 +20,7 @@ public class User {
     @Column
     private String name;
 
-    @OneToMany
-    @JoinColumn(name = "users_id")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Properties> property;
 
     public List<Properties> getProperty() {

@@ -1,5 +1,6 @@
 package com.example.DigiHomes.service;
 
+import com.example.DigiHomes.entities.Facilities;
 import com.example.DigiHomes.repositories.FacilitiesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,5 +12,13 @@ public class FacilityService {
 
     public boolean check(int bedrooms,int bathrooms,int parkings){
         return facilitiesRepository.existsByBedroomsAndBathroomsAndParkings(bedrooms, bathrooms, parkings);
+    }
+
+    public Facilities get(int bedrooms, int bathrooms, int parkings){
+        return facilitiesRepository.findByBedroomsAndBathroomsAndParkings(bedrooms, bathrooms, parkings).orElse(null);
+    }
+
+    public void saveFacility(Facilities facilities){
+        facilitiesRepository.save(facilities);
     }
 }
