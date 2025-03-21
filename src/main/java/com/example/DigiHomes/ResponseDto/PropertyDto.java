@@ -3,14 +3,14 @@ package com.example.DigiHomes.ResponseDto;
 
 public class PropertyDto {
     private String title;
-    private String descrption;
+    private String description;
     private Long price;
     private String country;
     private String city;
     private String state;
     private String address;
     private String image;
-    private FacilityDto facilityDto;
+    private FacilityDto facilities;
     private String userEmail;
 
     public String getTitle() {
@@ -21,12 +21,12 @@ public class PropertyDto {
         this.title = title;
     }
 
-    public String getDescrption() {
-        return descrption;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDescrption(String descrption) {
-        this.descrption = descrption;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public Long getPrice() {
@@ -77,12 +77,12 @@ public class PropertyDto {
         this.image = image;
     }
 
-    public FacilityDto getFacilityDto() {
-        return facilityDto;
+    public FacilityDto getFacilities() {
+        return facilities;
     }
 
-    public void setFacilityDto(FacilityDto facilityDto) {
-        this.facilityDto = facilityDto;
+    public void setFacilities(FacilityDto facilities) {
+        this.facilities = facilities;
     }
 
     public String getUserEmail() {

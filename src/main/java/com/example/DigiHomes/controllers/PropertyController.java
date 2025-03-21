@@ -15,7 +15,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -49,7 +48,7 @@ public class PropertyController {
     }
 
     @PostMapping("/{id}")
-    public ResponseEntity<?> addProperty(@RequestBody PropertyDto propertyDto,@PathVariable Long id){
+    public ResponseEntity<?> addProperty(@RequestBody PropertyDto propertyDto,@PathVariable String id){
         try{
             Locations locations;
             String city= propertyDto.getCity(),state= propertyDto.getState(),country= propertyDto.getCountry();
@@ -65,7 +64,7 @@ public class PropertyController {
             }
 
             Facilities facilities;
-            FacilityDto facilityDto = propertyDto.getFacilityDto();
+            FacilityDto facilityDto = propertyDto.getFacilities();
             int bedrooms= facilityDto.getBedrooms(),bathrooms= facilityDto.getBathrooms(),parkings= facilityDto.getParkings();
             if(facilityService.check(bedrooms,bathrooms,parkings))
                 facilities=facilityService.get(bedrooms,bathrooms,parkings);
@@ -79,7 +78,7 @@ public class PropertyController {
 
             Properties properties = new Properties();
             properties.setTitle(propertyDto.getTitle());
-            properties.setDescription(propertyDto.getDescrption());
+            properties.setDescription(propertyDto.getDescription());
             properties.setAddress(propertyDto.getAddress());
             properties.setEmail(propertyDto.getUserEmail());
             properties.setImgUrl(propertyDto.getImage());
@@ -87,7 +86,7 @@ public class PropertyController {
             properties.setFacility(facilities);
             properties.setPrice(propertyDto.getPrice());
 
-            User user = userService.GetUserbyId(id);
+            User user = userService.GetUserbyAuth(id);
             if(user==null) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             properties.setUser(user);
             propertyService.saveProperty(properties);

@@ -19,6 +19,10 @@ public class UserService {
         return userRepo.findById(id).orElse(null);
     }
 
+    public User GetUserbyAuth(String id){
+        return userRepo.findByAuthid(id).orElse(null);
+    }
+
 //    public User UpdateUser(Long id, User user){
 //        User dbuser = GetUserbyId(id);
 //        if(dbuser==null) return null;
