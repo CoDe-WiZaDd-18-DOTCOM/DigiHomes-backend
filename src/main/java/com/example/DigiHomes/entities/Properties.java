@@ -1,5 +1,6 @@
 package com.example.DigiHomes.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 @Entity
@@ -27,14 +28,17 @@ public class Properties {
     @Column(nullable = false)
     private String imgUrl;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "locations_id",nullable = false)
     private Locations location;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "facilities_id",nullable = false)
     private Facilities facility;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;

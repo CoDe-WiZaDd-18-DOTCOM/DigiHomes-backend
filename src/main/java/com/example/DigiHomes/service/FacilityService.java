@@ -11,7 +11,9 @@ public class FacilityService {
     private FacilitiesRepository facilitiesRepository;
 
     public boolean check(int bedrooms,int bathrooms,int parkings){
-        return facilitiesRepository.existsByBedroomsAndBathroomsAndParkings(bedrooms, bathrooms, parkings);
+        boolean exists = facilitiesRepository.existsByBedroomsAndBathroomsAndParkings(bedrooms, bathrooms, parkings);
+        System.out.println("Checking facility existence: " + bedrooms + ", " + bathrooms + ", " + parkings + " -> Exists? " + exists);
+        return exists;
     }
 
     public Facilities get(int bedrooms, int bathrooms, int parkings){

@@ -2,6 +2,7 @@ package com.example.DigiHomes.ResponseDto;
 
 
 public class PropertyDto {
+    private Long id;
     private String title;
     private String description;
     private Long price;
@@ -12,6 +13,14 @@ public class PropertyDto {
     private String image;
     private FacilityDto facilities;
     private String userEmail;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getTitle() {
         return title;
