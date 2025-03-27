@@ -6,10 +6,7 @@ import com.example.DigiHomes.entities.Facilities;
 import com.example.DigiHomes.entities.Locations;
 import com.example.DigiHomes.entities.Properties;
 import com.example.DigiHomes.entities.User;
-import com.example.DigiHomes.service.FacilityService;
-import com.example.DigiHomes.service.LocationService;
-import com.example.DigiHomes.service.PropertyService;
-import com.example.DigiHomes.service.UserService;
+import com.example.DigiHomes.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -34,35 +31,34 @@ public class PropertyController {
     @Autowired
     private FacilityService facilityService;
 
+    @Autowired
+    private PropertyToDto propertyToDto;
+
     @GetMapping
     public ResponseEntity<List<PropertyDto>> getProperties(){
         List<Properties> properties = propertyService.getAll();
         if(properties.isEmpty()) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         List<PropertyDto> propertyDtos = new ArrayList<>();
         for(Properties property:properties){
-            PropertyDto propertyDto = new PropertyDto();
-            propertyDto.setAddress(property.getAddress());
-            propertyDto.setCity(property.getLocation().getCity());
-            propertyDto.setState(property.getLocation().getState());
-            propertyDto.setCountry(property.getLocation().getCountry());
-            propertyDto.setAddress(property.getAddress());
-            propertyDto.setTitle(property.getTitle());
-            propertyDto.setDescription(property.getDescription());
-            propertyDto.setImage(property.getImgUrl());
-            propertyDto.setId(property.getId());
-            propertyDto.setPrice(property.getPrice());
-            propertyDto.setUserEmail(property.getEmail());
-
+            PropertyDto propertyDto = propertyToDto.convert(property);
             propertyDtos.add(propertyDto);
         }
         return new ResponseEntity<>(propertyDtos,HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Properties> getPropertybyid(@PathVariable Long id){
+    public ResponseEntity<PropertyDto> getPropertybyid(@PathVariable Long id){
         Properties properties = propertyService.getByid(id);
         if (properties==null) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        return new ResponseEntity<>(properties,HttpStatus.OK);
+        PropertyDto propertyDto = propertyToDto.convert(properties);
+
+        FacilityDto facilityDto = new FacilityDto();
+        facilityDto.setBathrooms(properties.getFacility().getBathrooms());
+        facilityDto.setBedrooms(properties.getFacility().getBedrooms());
+        facilityDto.setParkings(properties.getFacility().getParkings());
+        propertyDto.setFacilities(facilityDto);
+
+        return new ResponseEntity<>(propertyDto,HttpStatus.OK);
     }
 
     @PostMapping("/{id}")
