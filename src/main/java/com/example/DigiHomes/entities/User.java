@@ -25,6 +25,18 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Properties> property;
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Favorites> favorites;
+
+    public List<Favorites> getFavorites() {
+        return favorites;
+    }
+
+    public void setFavorites(List<Favorites> favorites) {
+        this.favorites = favorites;
+    }
+
     public List<Properties> getProperty() {
         return property;
     }
