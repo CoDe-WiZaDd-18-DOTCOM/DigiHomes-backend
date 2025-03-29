@@ -43,8 +43,8 @@ public class UserController {
 //
 //    @DeleteMapping("/{id}")
 //    public ResponseEntity<Boolean> deleteUser(@PathVariable("id") Long id){
-//        Boolean check = userService.DeleteUser(id);
-//        if(check) return new ResponseEntity<>(true,HttpStatus.OK);
+//        Boolean checkByuserandproperty = userService.DeleteUser(id);
+//        if(checkByuserandproperty) return new ResponseEntity<>(true,HttpStatus.OK);
 //        return new ResponseEntity<>(false,HttpStatus.NOT_FOUND);
 //    }
 
